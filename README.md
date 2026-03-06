@@ -25,38 +25,6 @@ A deep learning project that classifies clothing items from the **Fashion MNIST*
 - **Image size**: 28×28 grayscale
 - **Classes (10)**:
 
-| Label | Class |
-|-------|-------|
-| 0 | T-shirt/top |
-| 1 | Trouser |
-| 2 | Pullover |
-| 3 | Dress |
-| 4 | Coat |
-| 5 | Sandal |
-| 6 | Shirt |
-| 7 | Sneaker |
-| 8 | Bag |
-| 9 | Ankle boot |
-
----
-
-## 🏗️ Model Architecture — `FashionMNISTModelV2`
-
-A deep CNN with 4 convolutional blocks followed by a fully connected classifier:
-
-```
-Input: [B, 1, 28, 28]
-  ↓ Conv2d(1→32, 5×5) → ReLU → BatchNorm → MaxPool     → [B, 32, 14, 14]
-  ↓ Conv2d(32→64, 3×3) → ReLU → BatchNorm → MaxPool    → [B, 64, 7, 7]
-  ↓ Conv2d(64→128, 3×3) → ReLU → BatchNorm → MaxPool   → [B, 128, 3, 3]
-  ↓ Conv2d(128→256, 3×3) → ReLU → BatchNorm             → [B, 256, 3, 3]
-  ↓ Flatten
-  ↓ Linear(2304 → 256) → ReLU → Dropout(0.5)
-  ↓ Linear(256 → 10)
-Output: [B, 10] logits
-```
-
----
 
 ## ⚙️ Training Configuration
 
@@ -72,22 +40,6 @@ Output: [B, 10] logits
 
 ---
 
-## 🔧 Data Augmentation (Training Only)
-
-```python
-transforms.Compose([
-    transforms.RandomHorizontalFlip(),
-    transforms.RandomRotation(15),
-    transforms.RandomAffine(degrees=0, translate=(0.1, 0.1)),
-    transforms.ToTensor(),
-    transforms.Normalize((0.2860,), (0.3530,)),
-    transforms.RandomErasing(p=0.2, scale=(0.02, 0.1)),
-])
-```
-
-Test images use only `ToTensor()` + `Normalize`.
-
----
 
 ## 📈 Training Log (20 Epochs)
 
